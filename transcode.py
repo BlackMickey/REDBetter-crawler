@@ -240,7 +240,7 @@ def get_transcode_dir(flac_dir, output_dir, output_format, resample):
             transcode_dir = re.sub(re.compile('FLAC', re.I), '', transcode_dir)
     if resample:
         check = re.search('([0-9]{4})', flac_dir)
-        if check and ('24' in check.group(1) or '48' in check.group(1) or '96' in check.group(1)):
+        if check and ('24' in check.group(1) or '44' in check.group(1) or '48' in check.group(1) or '96' in check.group(1)):
             print(Pass)
             return
         elif '24' in flac_dir and '96' in flac_dir:
@@ -248,9 +248,9 @@ def get_transcode_dir(flac_dir, output_dir, output_format, resample):
             # e.g. "24 days in 96 castles - [24-96]" would become "16 days in 44 castles - [16-44]"
             transcode_dir = transcode_dir.replace('24', '16')
             transcode_dir = transcode_dir.replace('96', '48')
-        elif '24' in flac_dir and '48' in flac_dir:
+        elif '24' in flac_dir and ('44' in flac_dir or '48' in flac_dir):
             transcode_dir = transcode_dir.replace('24', '16')
-        elif '24' in flac_dir and '96' not in flac_dir and '48' not in flac_dir:
+        elif '24' in flac_dir and '44' not in flac_dir and '48' not in flac_dir and '96' not in flac_dir:
             transcode_dir = transcode_dir.replace('24', '16')
             if '44' in str(resample_rate(flac_dir)):
                 transcode_dir += " [44 kHz]"
