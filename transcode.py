@@ -253,9 +253,9 @@ def get_transcode_dir(flac_dir, output_dir, output_format, resample):
         elif '24' in flac_dir and '96' not in flac_dir and '48' not in flac_dir:
             transcode_dir = transcode_dir.replace('24', '16')
             if '44' in str(resample_rate(flac_dir)):
-                transcode_dir += " [44100 Hz]"
+                transcode_dir += " [44 kHz]"
             else:
-                transcode_dir += " [48000 Hz]"
+                transcode_dir += " [48 kHz]"
         else:
             if '44' in str(resample_rate(flac_dir)):
                 transcode_dir += " [16-44]"
