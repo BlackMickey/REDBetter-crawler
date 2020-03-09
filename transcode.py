@@ -239,7 +239,11 @@ def get_transcode_dir(flac_dir, output_dir, output_format, resample):
         if output_format != 'FLAC':
             transcode_dir = re.sub(re.compile('FLAC', re.I), '', transcode_dir)
     if resample:
-        if '24' in flac_dir and '96' in flac_dir:
+        check = re.search('([0-9]{4})', flac_dir)
+        if check and ('24' in check.group(1) or '48' in check.group(1) or '96' in check.group(1)):
+            print(Pass)
+            return
+        elif '24' in flac_dir and '96' in flac_dir:
             # XXX: theoretically, this could replace part of the album title too.
             # e.g. "24 days in 96 castles - [24-96]" would become "16 days in 44 castles - [16-44]"
             transcode_dir = transcode_dir.replace('24', '16')
